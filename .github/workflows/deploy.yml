@@ -20,20 +20,21 @@ jobs:
         run: bun install
 
       - name: Build project
-        run: npm run build
+        run: bun run build
 
       - name: Deploy
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SS_USERNAME}}
-          key: ${{secrets.SSH_KEY}}
-          password:""
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             test -d Portfolio || git clone https://github.com/cryogon/portfolio.git Portfolio
             cd Portfolio
             git pull
             bun install
+            bun run build
+
 
 
           

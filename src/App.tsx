@@ -10,12 +10,11 @@ import initialState from "./state/Cryogon.theatre-project-state.json";
 import * as THREE from "three";
 
 
-document.URL.includes("#debug") && studio.initialize();
+if (document.URL.includes("#debug")) {
+  studio.initialize();
+}
 studio.extend(extension);
 const sheet = getProject("Cryogon", { state: initialState }).sheet("default");
-
-const geo = new THREE.BoxGeometry()
-
 
 const App = () => {
   return (
