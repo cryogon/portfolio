@@ -13,7 +13,7 @@ const Lamps = () => {
     return (value1 + value2) / 2;
   };
 
-  const getCoordinations = (model: any): THREE.Vector3 => {
+  const getCoordinations = (model: { scene: THREE.Object3D }): THREE.Vector3 => {
     if(!("scene" in model))return new THREE.Vector3(0,0,0) 
 
     const scene = model.scene as THREE.Object3D;
