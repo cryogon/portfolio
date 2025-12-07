@@ -1,0 +1,39 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+       
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SS_USERNAME}}
+          key: ${{secrets.SSH_KEY}}
+          password:""
+          script: |
+            test -d Portfolio || git clone https://github.com/cryogon/portfolio.git Portfolio
+            cd Portfolio
+            git pull
+            bun install
+
+
+          
