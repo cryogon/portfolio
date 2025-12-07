@@ -9,11 +9,12 @@ import { Perf } from "r3f-perf";
 import initialState from "./state/Cryogon.theatre-project-state.json";
 import * as THREE from "three";
 
-studio.initialize();
+
+document.URL.includes("#debug") && studio.initialize();
 studio.extend(extension);
 const sheet = getProject("Cryogon", { state: initialState }).sheet("default");
 
-const geo=new THREE.BoxGeometry()
+const geo = new THREE.BoxGeometry()
 
 
 const App = () => {
