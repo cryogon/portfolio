@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import Experience from "./components/Experience";
+import Experience from "./Experience";
 import Lights from "./components/Lights";
 import { getProject } from "@theatre/core";
 import studio from "@theatre/studio";
@@ -8,6 +8,7 @@ import { PerspectiveCamera, SheetProvider } from "@theatre/r3f";
 import { Perf } from "r3f-perf";
 import initialState from "./state/Cryogon.theatre-project-state.json";
 import * as THREE from "three";
+import { useScene } from "./store/useSceneStore";
 
 
 if (document.URL.includes("#debug")) {
@@ -17,10 +18,13 @@ studio.extend(extension);
 const sheet = getProject("Cryogon", { state: initialState }).sheet("default");
 
 const App = () => {
+  const store = useScene();
+
   return (
     <>
       <Canvas
         shadows
+        dpr={2}
         gl={{
           preserveDrawingBuffer: true,
           toneMapping: THREE.AgXToneMapping,
