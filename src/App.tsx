@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import Experience from "./components/Experience";
+import Experience from "./Experience";
 import Lights from "./components/Lights";
 import { getProject } from "@theatre/core";
 import studio from "@theatre/studio";
@@ -8,6 +8,8 @@ import { PerspectiveCamera, SheetProvider } from "@theatre/r3f";
 import { Perf } from "r3f-perf";
 import initialState from "./state/Cryogon.theatre-project-state.json";
 import * as THREE from "three";
+import { useScene } from "./store/useSceneStore";
+import TransitionOverlay from "./components/TransitionOverlay";
 
 
 if (document.URL.includes("#debug")) {
@@ -16,17 +18,31 @@ if (document.URL.includes("#debug")) {
 studio.extend(extension);
 const sheet = getProject("Cryogon", { state: initialState }).sheet("default");
 
+
+function DebugButton() {
+  const triggerTransition = useScene((state) => state.triggerTransition);
+
+  if (document.URL.includes("#debug")) {
+    return <button onClick={() => triggerTransition("ProjectCave")}>Enter Cave</button>
+
+  }
+  return <></>
+}
+
 const App = () => {
   return (
     <>
+      <DebugButton />
+      <TransitionOverlay />
       <Canvas
         shadows
+        dpr={2}
         gl={{
           preserveDrawingBuffer: true,
           toneMapping: THREE.AgXToneMapping,
         }}
       >
-        <Perf position="top-left" />
+        <Perf position="top-right" />
         <SheetProvider sheet={sheet}>
           <color args={["#a96081"]} attach="background" />
           <PerspectiveCamera
