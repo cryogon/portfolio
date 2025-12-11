@@ -1,18 +1,23 @@
-import { Component, Suspense, useEffect } from "react";
-import Main from "./scenes/Main.tsx"
-import { useScene } from "./store/useSceneStore.ts";
-import { scenes } from "./config/scenes.ts";
+import { Suspense, useEffect } from "react";
+import { useScene } from "./store/useSceneStore";
+import { scenes } from "./config/scenes";
 
 const Experience = () => {
-  const store = useScene()
-  const CurrentScene = scenes[store.activeScene]
+  const activeScene = useScene((state) => state.activeScene);
+  const CurrentScene = scenes[activeScene];
+
   useEffect(() => {
-    console.log("hemlo")
-  }, [store.activeScene])
+    console.log(`Entered scene: ${activeScene}`);
+  }, [activeScene]);
+
   return (
-    <Suspense>
-      {CurrentScene && <CurrentScene />}
-    </Suspense>
+    <>
+
+      <Suspense fallback={null}>
+        {/* The scene will swap invisibly behind the black overlay */}
+        {CurrentScene && <CurrentScene />}
+      </Suspense>
+    </>
   );
 };
 
