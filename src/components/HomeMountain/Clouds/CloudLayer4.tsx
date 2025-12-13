@@ -67,7 +67,7 @@ export default function CloudLayer4() {
   return (
     <>
       <e.group
-        theatreKey="scene1-clouds3"
+        theatreKey="scene1-clouds4"
         objRef={cloudObjRef}
         additionalProps={{
           cloudSeed: types.number(1, { range: [0, 100], nudgeMultiplier: 1 }),
@@ -89,21 +89,24 @@ export default function CloudLayer4() {
             range: [-10, 10],
             nudgeMultiplier: 0.01,
           }),
-          cloudOpacity: types.number(1, { range: [0, 1], nudgeMultiplier: 0.01 }),
+          cloudOpacity: types.number(1, {
+            range: [0, 1],
+            nudgeMultiplier: 0.01,
+          }),
         }}
       >
-        <Clouds material={THREE.MeshBasicMaterial}>
-          {vertices.map((each, index) => {
-            return (
+        {vertices.map((each, index) => {
+          return (
+            <Clouds material={THREE.MeshBasicMaterial}>
               <Cloud
                 key={index}
                 position={[each.x, each.y, each.z]}
                 segments={20}
                 {...cloudProps}
               />
-            );
-          })}
-        </Clouds>
+            </Clouds>
+          );
+        })}
       </e.group>
     </>
   );

@@ -89,21 +89,24 @@ export default function CloudLayer2() {
             range: [-10, 10],
             nudgeMultiplier: 0.01,
           }),
-          cloudOpacity: types.number(1, { range: [0, 1], nudgeMultiplier: 0.01 }),
+          cloudOpacity: types.number(1, {
+            range: [0, 1],
+            nudgeMultiplier: 0.01,
+          }),
         }}
       >
-        <Clouds material={THREE.MeshBasicMaterial}>
-          {vertices.map((each, index) => {
-            return (
+        {vertices.map((each, index) => {
+          return (
+            <Clouds material={THREE.MeshBasicMaterial}>
               <Cloud
                 key={index}
                 position={[each.x, each.y, each.z]}
                 segments={20}
                 {...cloudProps}
               />
-            );
-          })}
-        </Clouds>
+            </Clouds>
+          );
+        })}
       </e.group>
     </>
   );
