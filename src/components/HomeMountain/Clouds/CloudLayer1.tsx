@@ -70,7 +70,6 @@ export default function CloudLayer1() {
         theatreKey="scene1-cloud1"
         objRef={cloudObjRef}
         additionalProps={{
-          cloudSeed: types.number(1, { range: [0, 100], nudgeMultiplier: 1 }),
           cloudScale: types.number(1, {
             range: [0.1, 10],
             nudgeMultiplier: 0.1,
@@ -98,7 +97,7 @@ export default function CloudLayer1() {
         {vertices.map((each, index) => {
           console.log(each)
           return (
-            <Clouds material={THREE.MeshBasicMaterial}>
+            <Clouds material={THREE.MeshPhysicalMaterial}>
               <Cloud
                 key={index}
                 position={[each.x, each.y, each.z]}

@@ -10,7 +10,8 @@ import initialState from "./state/Cryogon.theatre-project-state.json";
 import * as THREE from "three";
 import { useScene } from "./store/useSceneStore";
 import TransitionOverlay from "./components/TransitionOverlay";
-
+import CameraScene from "./components/CameraScene";
+import { ScrollControls } from "@react-three/drei";
 
 if (document.URL.includes("#debug")) {
   studio.initialize();
@@ -39,22 +40,25 @@ const App = () => {
         dpr={2}
         gl={{
           preserveDrawingBuffer: true,
-          toneMapping: THREE.AgXToneMapping,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 0.9
         }}
       >
         <Perf position="top-right" />
         <SheetProvider sheet={sheet}>
           <color args={["#a96081"]} attach="background" />
-          <PerspectiveCamera
-            theatreKey="Camera"
-            makeDefault
-            // position={[-62,561,-369]}
-            position={[-35, 381, 514]}
-            rotation={[80, 0, 148]}
-            fov={75}
-          />
-          <Lights />
-          <Experience />
+          <ScrollControls pages={50} damping={0}>
+            <CameraScene />
+            {/* <PerspectiveCamera */}
+            {/*   theatreKey="Camera" */}
+            {/*   makeDefault */}
+            {/*   position={[-35, 381, 514]} */}
+            {/*   rotation={[80, 0, 148]} */}
+            {/*   fov={75} */}
+            {/* /> */}
+            <Lights />
+            <Experience />
+          </ScrollControls>
         </SheetProvider>
       </Canvas>
     </>

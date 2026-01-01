@@ -7,7 +7,6 @@ import { types } from "@theatre/core";
 export default function CloudLayer2() {
   const cloudObjRef = useRef<THREE.Group>(null!);
   const [cloudProps, setCloudProps] = useState({
-    seed: 1,
     scale: 5,
     volume: 20,
     color: "#ff69b4", // use hex or string for drei cloud color
@@ -15,6 +14,7 @@ export default function CloudLayer2() {
     growth: 0,
     speed: 0,
     opacity: 1,
+    concentrate: "random",
   });
 
   useEffect(() => {
@@ -23,7 +23,6 @@ export default function CloudLayer2() {
     const unsubscribe = cloudObjRef.current.onValuesChange((values) => {
       // When values change in the studio, update the React state
       setCloudProps({
-        seed: values.cloudSeed,
         scale: values.cloudScale,
         volume: values.cloudVolume,
         // Convert rgba from Theatre to a format Drei's <Cloud> component expects (hex/css string)
@@ -35,6 +34,7 @@ export default function CloudLayer2() {
         growth: values.cloudGrowth,
         speed: values.cloudSpeed,
         opacity: values.cloudOpacity,
+        concentrate: "random",
       });
     });
 
@@ -45,7 +45,7 @@ export default function CloudLayer2() {
 
   const cloudsPath = useGLTF("/models/Scene1/Clouds2.glb");
   const vertices = useMemo(() => {
-    const st = new Set<{ x: number; y: number; z: number }>();
+    const st = new Set<{ x: number; y: number; z: number; seed: number }>();
     Object.keys(cloudsPath.nodes).forEach((key) => {
       const geometry = cloudsPath.nodes[key].geometry;
       if (geometry) {
@@ -56,11 +56,11 @@ export default function CloudLayer2() {
             x: positions[i3],
             y: positions[i3 + 1],
             z: positions[i3 + 2],
+            seed: Math.round(positions[i3 + 1] * positions[i3] * 100),
           });
         }
       }
     });
-    console.log([...st].length);
     return [...st];
   }, [cloudsPath]);
 
@@ -70,7 +70,6 @@ export default function CloudLayer2() {
         theatreKey="scene1-clouds2"
         objRef={cloudObjRef}
         additionalProps={{
-          cloudSeed: types.number(1, { range: [0, 100], nudgeMultiplier: 1 }),
           cloudScale: types.number(1, {
             range: [0.1, 10],
             nudgeMultiplier: 0.1,
@@ -97,11 +96,11 @@ export default function CloudLayer2() {
       >
         {vertices.map((each, index) => {
           return (
-            <Clouds material={THREE.MeshBasicMaterial}>
+            <Clouds material={THREE.MeshPhysicalMaterial}>
               <Cloud
+                seed={each.seed}
                 key={index}
                 position={[each.x, each.y, each.z]}
-                segments={20}
                 {...cloudProps}
               />
             </Clouds>

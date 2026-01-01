@@ -1,8 +1,7 @@
 import { Cloud, Clouds } from "@react-three/drei";
-import CloudLayer1 from "./Clouds/CloudLayer1";
+import CloudLayer1 from "./Clouds/CLoudLayer1Test2.tsx";
 import CloudLayer2 from "./Clouds/CloudLayer2";
 import CloudLayer3 from "./Clouds/CloudLayer3";
-import CloudLayer4 from "./Clouds/CloudLayer4";
 import { editable as e } from "@theatre/r3f";
 import { useRef, useState, useEffect } from "react";
 import { types } from "@theatre/core";
@@ -34,9 +33,8 @@ export default function MountainClouds() {
         // Convert rgba from Theatre to a format Drei's <Cloud> component expects (hex/css string)
         color: `rgba(${Math.round(values.cloudColor.r * 255)}, ${Math.round(
           values.cloudColor.g * 255,
-        )}, ${Math.round(values.cloudColor.b * 255)}, ${
-          values.cloudColor.a
-        })`,
+        )}, ${Math.round(values.cloudColor.b * 255)}, ${values.cloudColor.a
+          })`,
         fade: values.cloudFade,
         growth: values.cloudGrowth,
         speed: values.cloudSpeed,
@@ -51,42 +49,41 @@ export default function MountainClouds() {
   return (
     <group>
       <CloudLayer1 />
-      <CloudLayer2 />
-      <CloudLayer3 />
-      <CloudLayer4 />
-      <e.group
-        theatreKey="transparency-cloud"
-        objRef={cloudObjRef}
-        additionalProps={{
-          cloudSeed: types.number(1, { range: [0, 100], nudgeMultiplier: 1 }),
-          cloudScale: types.number(1, {
-            range: [0.1, 10],
-            nudgeMultiplier: 0.1,
-          }),
-          cloudVolume: types.number(2, {
-            range: [0.1, 20],
-            nudgeMultiplier: 0.1,
-          }),
-          cloudColor: types.rgba({ r: 1, g: 0.41, b: 0.71, a: 1 }),
-          cloudFade: types.number(100, { range: [0, 200], nudgeMultiplier: 1 }),
-          cloudGrowth: types.number(0, {
-            range: [-10, 10],
-            nudgeMultiplier: 0.01,
-          }),
-          cloudSpeed: types.number(0, {
-            range: [-10, 10],
-            nudgeMultiplier: 0.01,
-          }),
-          cloudOpacity: types.number(1, {
-            range: [0, 1],
-            nudgeMultiplier: 0.01,
-          }),
-        }}
-      >
-        <Clouds>
-          <Cloud {...cloudProps} />
-        </Clouds>
-      </e.group>
+      {/* <CloudLayer2 /> */}
+      {/* <CloudLayer3 /> */}
+      {/* <e.group */}
+      {/*   theatreKey="transparency-cloud" */}
+      {/*   objRef={cloudObjRef} */}
+      {/*   additionalProps={{ */}
+      {/*     cloudSeed: types.number(1, { range: [0, 100], nudgeMultiplier: 1 }), */}
+      {/*     cloudScale: types.number(1, { */}
+      {/*       range: [0.1, 100], */}
+      {/*       nudgeMultiplier: 0.1, */}
+      {/*     }), */}
+      {/*     cloudVolume: types.number(2, { */}
+      {/*       range: [0.1, 20], */}
+      {/*       nudgeMultiplier: 0.1, */}
+      {/*     }), */}
+      {/*     cloudColor: types.rgba({ r: 1, g: 0.41, b: 0.71, a: 1 }), */}
+      {/*     cloudFade: types.number(100, { range: [0, 200], nudgeMultiplier: 1 }), */}
+      {/*     cloudGrowth: types.number(0, { */}
+      {/*       range: [-10, 10], */}
+      {/*       nudgeMultiplier: 0.01, */}
+      {/*     }), */}
+      {/*     cloudSpeed: types.number(0, { */}
+      {/*       range: [-10, 10], */}
+      {/*       nudgeMultiplier: 0.01, */}
+      {/*     }), */}
+      {/*     cloudOpacity: types.number(1, { */}
+      {/*       range: [0, 1], */}
+      {/*       nudgeMultiplier: 0.01, */}
+      {/*     }), */}
+      {/*   }} */}
+      {/* > */}
+      {/*   <Clouds material={THREE.MeshPhysicalMaterial}> */}
+      {/*     <Cloud {...cloudProps} segments={40}/> */}
+      {/*   </Clouds> */}
+      {/* </e.group> */}
     </group>
   );
 }
