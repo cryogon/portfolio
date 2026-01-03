@@ -1,7 +1,6 @@
 import { Cloud, Clouds } from "@react-three/drei";
-import CloudLayer1 from "./Clouds/CLoudLayer1Test2.tsx";
+import CloudLayer1 from "./Clouds/CloudLayer1CustomSprite.tsx";
 import CloudLayer2 from "./Clouds/CloudLayer2";
-import CloudLayer3 from "./Clouds/CloudLayer3";
 import { editable as e } from "@theatre/r3f";
 import { useRef, useState, useEffect } from "react";
 import { types } from "@theatre/core";
@@ -49,41 +48,41 @@ export default function MountainClouds() {
   return (
     <group>
       <CloudLayer1 />
-      {/* <CloudLayer2 /> */}
+      <CloudLayer2 />
       {/* <CloudLayer3 /> */}
-      {/* <e.group */}
-      {/*   theatreKey="transparency-cloud" */}
-      {/*   objRef={cloudObjRef} */}
-      {/*   additionalProps={{ */}
-      {/*     cloudSeed: types.number(1, { range: [0, 100], nudgeMultiplier: 1 }), */}
-      {/*     cloudScale: types.number(1, { */}
-      {/*       range: [0.1, 100], */}
-      {/*       nudgeMultiplier: 0.1, */}
-      {/*     }), */}
-      {/*     cloudVolume: types.number(2, { */}
-      {/*       range: [0.1, 20], */}
-      {/*       nudgeMultiplier: 0.1, */}
-      {/*     }), */}
-      {/*     cloudColor: types.rgba({ r: 1, g: 0.41, b: 0.71, a: 1 }), */}
-      {/*     cloudFade: types.number(100, { range: [0, 200], nudgeMultiplier: 1 }), */}
-      {/*     cloudGrowth: types.number(0, { */}
-      {/*       range: [-10, 10], */}
-      {/*       nudgeMultiplier: 0.01, */}
-      {/*     }), */}
-      {/*     cloudSpeed: types.number(0, { */}
-      {/*       range: [-10, 10], */}
-      {/*       nudgeMultiplier: 0.01, */}
-      {/*     }), */}
-      {/*     cloudOpacity: types.number(1, { */}
-      {/*       range: [0, 1], */}
-      {/*       nudgeMultiplier: 0.01, */}
-      {/*     }), */}
-      {/*   }} */}
-      {/* > */}
-      {/*   <Clouds material={THREE.MeshPhysicalMaterial}> */}
-      {/*     <Cloud {...cloudProps} segments={40}/> */}
-      {/*   </Clouds> */}
-      {/* </e.group> */}
+      <e.group
+        theatreKey="transparency-cloud"
+        objRef={cloudObjRef}
+        additionalProps={{
+          cloudSeed: types.number(1, { range: [0, 100], nudgeMultiplier: 1 }),
+          cloudScale: types.number(1, {
+            range: [0.1, 100],
+            nudgeMultiplier: 0.1,
+          }),
+          cloudVolume: types.number(2, {
+            range: [0.1, 20],
+            nudgeMultiplier: 0.1,
+          }),
+          cloudColor: types.rgba({ r: 1, g: 0.41, b: 0.71, a: 1 }),
+          cloudFade: types.number(100, { range: [0, 200], nudgeMultiplier: 1 }),
+          cloudGrowth: types.number(0, {
+            range: [-10, 10],
+            nudgeMultiplier: 0.01,
+          }),
+          cloudSpeed: types.number(0, {
+            range: [-10, 10],
+            nudgeMultiplier: 0.01,
+          }),
+          cloudOpacity: types.number(1, {
+            range: [0, 1],
+            nudgeMultiplier: 0.01,
+          }),
+        }}
+      >
+        <Clouds material={THREE.MeshPhysicalMaterial}>
+          <Cloud {...cloudProps} segments={40} />
+        </Clouds>
+      </e.group>
     </group>
   );
 }

@@ -30,6 +30,8 @@ const Lights = () => {
         intensity={1}
         color={"#ffffff"}
       />
+
+      <e.pointLight theatreKey="pointLight" />
     </>
   );
 };
