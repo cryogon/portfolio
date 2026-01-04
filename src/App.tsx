@@ -4,7 +4,7 @@ import Lights from "./components/Lights";
 import { getProject } from "@theatre/core";
 import studio from "@theatre/studio";
 import extension from "@theatre/r3f/dist/extension";
-import { PerspectiveCamera, SheetProvider } from "@theatre/r3f";
+import { SheetProvider } from "@theatre/r3f";
 import { Perf } from "r3f-perf";
 import initialState from "./state/Cryogon.theatre-project-state.json";
 import * as THREE from "three";

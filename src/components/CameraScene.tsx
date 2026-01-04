@@ -8,7 +8,7 @@ import * as THREE from 'three'
 export default function CameraScene() {
   const group = useRef<THREE.Group>(null!)
   const { animations } = useGLTF('models/CameraPath/CameraAnimationFirstCut.glb')
-  const { actions } = useAnimations(animations, group)
+  const { actions, mixer } = useAnimations(animations, group)
   const scrollData = useScroll()
 
 
@@ -16,31 +16,31 @@ export default function CameraScene() {
     const actionNames = Object.keys(actions);
     if (actionNames.length > 0) {
       const action = actions[actionNames[0]];
-      if (action) action.play().paused = true;
+      if (action) {
+        action.play()
+      }
     }
   }, [actions])
 
   useFrame((_state, delta) => {
-
     if (!scrollData || Object.keys(actions).length === 0) return;
 
     const actionNames = Object.keys(actions);
     if (actionNames.length === 0) return;
 
-    const action = actions[actionNames[0]];
+    const action = actions[actionNames[0]] as any;
+
     if (!action) return;
     const currentScroll = scrollData.offset;
     const duration = action.getClip().duration;
 
-    action.time =
-      THREE.MathUtils.damp(
-        action.time,
-        currentScroll * duration,
-        4,
-        delta,
-      );
-
-
+    const smoothTime = THREE.MathUtils.damp(
+      action.time,
+      currentScroll * duration,
+      4,
+      delta,
+    )
+    mixer.setTime(smoothTime)
   })
 
   return (
