@@ -43,18 +43,18 @@ const Scene2 = () => {
       });
     });
   }, [
-      projectMountainBaseOfProjectMountain,
-      projectMountainBaseOfLevitatingPlatform,
-      projectMountainFloatingDebris,
-      projectMountainPlatform1,
-      projectMountainPlatform1Mountain,
-      projectMountainPlatform2Mountain,
-      projectMountainPlatform3Mountain,
-      projectMountainPlatform4Mountain,
-      projectMountainRock,
-      projectMountainTopHalftMountain,
-      projectMountainVueLogo,
-      projectMountainClouds
+    projectMountainBaseOfProjectMountain,
+    projectMountainBaseOfLevitatingPlatform,
+    projectMountainFloatingDebris,
+    projectMountainPlatform1,
+    projectMountainPlatform1Mountain,
+    projectMountainPlatform2Mountain,
+    projectMountainPlatform3Mountain,
+    projectMountainPlatform4Mountain,
+    projectMountainRock,
+    projectMountainTopHalftMountain,
+    projectMountainVueLogo,
+    projectMountainClouds
   ]);
   return (
     <group>
