@@ -1,31 +1,20 @@
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import Lights from "./components/Lights";
-import { getProject } from "@theatre/core";
-import studio from "@theatre/studio";
-import extension from "@theatre/r3f/dist/extension";
 import { SheetProvider } from "@theatre/r3f";
 import { Perf } from "r3f-perf";
-import initialState from "./state/Cryogon.theatre-project-state.json";
 import * as THREE from "three";
 import { useScene } from "./store/useSceneStore";
 import TransitionOverlay from "./components/TransitionOverlay";
 import CameraScene from "./components/CameraScene";
 import { ScrollControls } from "@react-three/drei";
-
-if (document.URL.includes("#debug")) {
-  studio.initialize();
-}
-studio.extend(extension);
-const sheet = getProject("Cryogon", { state: initialState }).sheet("default");
-
+import { sheet } from "./theatreProject";
 
 function DebugButton() {
   const triggerTransition = useScene((state) => state.triggerTransition);
 
   if (document.URL.includes("#debug")) {
     return <button onClick={() => triggerTransition("ProjectCave")}>Enter Cave</button>
-
   }
   return <></>
 }

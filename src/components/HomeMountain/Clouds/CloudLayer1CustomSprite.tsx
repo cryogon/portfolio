@@ -35,7 +35,7 @@ export default function CloudLayer1() {
       density: types.number(0.9, { range: [0, 1] }),
       size: types.number(40, { range: [1, 100] })
     }, { reconfigure: true });
-    densityObject1?.onValuesChange(value => {
+    const unsub1 = densityObject1?.onValuesChange(value => {
       setDensity1(value.density);
       setSize1(value.size);
     });
@@ -44,7 +44,7 @@ export default function CloudLayer1() {
       density: types.number(0.9, { range: [0, 1] }),
       size: types.number(40, { range: [1, 100] })
     }, { reconfigure: true });
-    densityObject2?.onValuesChange(value => {
+    const unsub2 = densityObject2?.onValuesChange(value => {
       setDensity2(value.density);
       setSize2(value.size);
     });
@@ -53,7 +53,7 @@ export default function CloudLayer1() {
       density: types.number(0.9, { range: [0, 1] }),
       size: types.number(40, { range: [1, 100] })
     }, { reconfigure: true });
-    densityObject3?.onValuesChange(value => {
+    const unsub3 = densityObject3?.onValuesChange(value => {
       setDensity3(value.density);
       setSize3(value.size);
     });
@@ -62,7 +62,7 @@ export default function CloudLayer1() {
       density: types.number(0.9, { range: [0, 1] }),
       size: types.number(40, { range: [1, 100] })
     }, { reconfigure: true });
-    densityObject4?.onValuesChange(value => {
+    const unsub4 = densityObject4?.onValuesChange(value => {
       setDensity4(value.density);
       setSize4(value.size);
     });
