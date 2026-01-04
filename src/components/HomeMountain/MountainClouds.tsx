@@ -21,9 +21,9 @@ export default function MountainClouds() {
   });
 
   useEffect(() => {
-    if (!cloudObjRef.current) return;
+    if (!cloudObjRef.current && !("onValuesChange" in cloudObjRef.current)) return;
 
-    const unsubscribe = cloudObjRef.current.onValuesChange((values) => {
+    const unsubscribe = (cloudObjRef.current as any).onValuesChange((values: any) => {
       // When values change in the studio, update the React state
       setCloudProps({
         seed: values.cloudSeed,

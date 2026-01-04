@@ -18,9 +18,9 @@ export default function CloudLayer2() {
   });
 
   useEffect(() => {
-    if (!cloudObjRef.current) return;
+    if (!cloudObjRef.current && "onValuesChange" in cloudObjRef.current) return;
 
-    const unsubscribe = cloudObjRef.current.onValuesChange((values) => {
+    const unsubscribe = (cloudObjRef.current as any).onValuesChange((values: any) => {
       // When values change in the studio, update the React state
       setCloudProps({
         scale: values.cloudScale,
@@ -47,18 +47,21 @@ export default function CloudLayer2() {
   const vertices = useMemo(() => {
     const st = new Set<{ x: number; y: number; z: number; seed: number }>();
     Object.keys(cloudsPath.nodes).forEach((key) => {
-      const geometry = cloudsPath.nodes[key].geometry;
-      if (geometry) {
-        const positions = geometry.attributes.position.array;
-        for (let i = 0; i < positions.length / 3; i++) {
-          const i3 = i * 3;
-          st.add({
-            x: positions[i3],
-            y: positions[i3 + 1],
-            z: positions[i3 + 2],
-            seed: Math.round(positions[i3 + 1] * positions[i3] * 100),
-          });
+      if ("geometry" in cloudsPath.nodes[key]) {
+        const geometry = cloudsPath.nodes[key].geometry as THREE.BufferGeometry;
+        if (geometry) {
+          const positions = geometry.attributes.position.array;
+          for (let i = 0; i < positions.length / 3; i++) {
+            const i3 = i * 3;
+            st.add({
+              x: positions[i3],
+              y: positions[i3 + 1],
+              z: positions[i3 + 2],
+              seed: Math.round(positions[i3 + 1] * positions[i3] * 100),
+            });
+          }
         }
+
       }
     });
     return [...st];
@@ -101,7 +104,13 @@ export default function CloudLayer2() {
                 seed={each.seed}
                 key={index}
                 position={[each.x, each.y, each.z]}
-                {...cloudProps}
+                scale={cloudProps.scale}
+                volume={cloudProps.volume}
+                color={cloudProps.color}
+                fade={cloudProps.fade}
+                growth={cloudProps.growth}
+                speed={cloudProps.speed}
+                opacity={cloudProps.opacity}
               />
             </Clouds>
           );
