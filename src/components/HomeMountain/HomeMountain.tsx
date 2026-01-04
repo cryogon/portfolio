@@ -7,7 +7,7 @@ import Lamps from "./Lamps";
 import CryogonText from "./CryogonText";
 import MountainClouds from "./MountainClouds";
 
-const HomeMountain= () => {
+const HomeMountain = () => {
   const homeMountainModelUpper = useGLTF("/models/HomeMountainUpper.glb");
   const homeMountainModelBottom = useGLTF("/models/HomeMountainBottom.glb");
   const homeMountainTop = useGLTF("/models/HomeMountainTop.glb");

@@ -1,16 +1,12 @@
-import { Cloud, Clouds } from "@react-three/drei";
-import CloudLayer1 from "./Clouds/CloudLayer1CustomSprite.tsx";
-import CloudLayer2 from "./Clouds/CloudLayer2";
-import { editable as e } from "@theatre/r3f";
-import { useRef, useState, useEffect } from "react";
-import { types } from "@theatre/core";
+import { useMemo, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
+import { Clouds, Cloud, useGLTF } from "@react-three/drei";
+import { editable as e } from "@theatre/r3f";
+import { types } from "@theatre/core";
 
-export default function MountainClouds() {
+export default function CloudLayer2() {
   const cloudObjRef = useRef<THREE.Group>(null!);
-
   const [cloudProps, setCloudProps] = useState({
-    seed: 1,
     scale: 5,
     volume: 20,
     color: "#ff69b4", // use hex or string for drei cloud color
@@ -18,6 +14,7 @@ export default function MountainClouds() {
     growth: 0,
     speed: 0,
     opacity: 1,
+    concentrate: "random",
   });
 
   useEffect(() => {
@@ -26,18 +23,18 @@ export default function MountainClouds() {
     const unsubscribe = cloudObjRef.current.onValuesChange((values) => {
       // When values change in the studio, update the React state
       setCloudProps({
-        seed: values.cloudSeed,
         scale: values.cloudScale,
         volume: values.cloudVolume,
         // Convert rgba from Theatre to a format Drei's <Cloud> component expects (hex/css string)
-        color: `rgba(${Math.round(values.cloudColor.r * 255)}, ${Math.round(
-          values.cloudColor.g * 255,
-        )}, ${Math.round(values.cloudColor.b * 255)}, ${values.cloudColor.a
-          })`,
+        color: `rgba(${Math.round(values.cloudColor.r * 255)}, 
+                      ${Math.round(values.cloudColor.g * 255)}, 
+                      ${Math.round(values.cloudColor.b * 255)}, 
+                      ${values.cloudColor.a})`,
         fade: values.cloudFade,
         growth: values.cloudGrowth,
         speed: values.cloudSpeed,
         opacity: values.cloudOpacity,
+        concentrate: "random",
       });
     });
 
@@ -45,18 +42,36 @@ export default function MountainClouds() {
       unsubscribe();
     };
   }, [cloudObjRef]);
+
+  const cloudsPath = useGLTF("/models/Scene1/Clouds2.glb");
+  const vertices = useMemo(() => {
+    const st = new Set<{ x: number; y: number; z: number; seed: number }>();
+    Object.keys(cloudsPath.nodes).forEach((key) => {
+      const geometry = cloudsPath.nodes[key].geometry;
+      if (geometry) {
+        const positions = geometry.attributes.position.array;
+        for (let i = 0; i < positions.length / 3; i++) {
+          const i3 = i * 3;
+          st.add({
+            x: positions[i3],
+            y: positions[i3 + 1],
+            z: positions[i3 + 2],
+            seed: Math.round(positions[i3 + 1] * positions[i3] * 100),
+          });
+        }
+      }
+    });
+    return [...st];
+  }, [cloudsPath]);
+
   return (
-    <group>
-      <CloudLayer1 />
-      <CloudLayer2 />
-      {/* <CloudLayer3 /> */}
+    <>
       <e.group
-        theatreKey="transparency-cloud"
+        theatreKey="scene1-clouds2"
         objRef={cloudObjRef}
         additionalProps={{
-          cloudSeed: types.number(1, { range: [0, 100], nudgeMultiplier: 1 }),
           cloudScale: types.number(1, {
-            range: [0.1, 100],
+            range: [0.1, 10],
             nudgeMultiplier: 0.1,
           }),
           cloudVolume: types.number(2, {
@@ -79,10 +94,19 @@ export default function MountainClouds() {
           }),
         }}
       >
-        <Clouds material={THREE.MeshPhysicalMaterial}>
-          <Cloud {...cloudProps} segments={40} />
-        </Clouds>
+        {vertices.map((each, index) => {
+          return (
+            <Clouds material={THREE.MeshPhysicalMaterial}>
+              <Cloud
+                seed={each.seed}
+                key={index}
+                position={[each.x, each.y, each.z]}
+                {...cloudProps}
+              />
+            </Clouds>
+          );
+        })}
       </e.group>
-    </group>
+    </>
   );
 }
