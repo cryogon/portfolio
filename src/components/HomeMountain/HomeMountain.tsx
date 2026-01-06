@@ -7,7 +7,6 @@ import Lamps from "./Lamps";
 import CryogonText from "./CryogonText";
 import MountainClouds from "./MountainClouds";
 import BonFire from "./BonFire";
-import { val } from "@theatre/core";
 
 const HomeMountain = () => {
   const homeMountainModelUpper = useGLTF("/models/HomeMountainUpper.glb");
