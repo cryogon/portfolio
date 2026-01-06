@@ -1,11 +1,12 @@
 import { useGLTF } from "@react-three/drei";
-import { editable as e } from "@theatre/r3f";
-import { useEffect } from "react";
+import { editable as e, useCurrentSheet } from "@theatre/r3f";
+import { useEffect, useState } from "react";
 import * as THREE from "three";
 import LetterBox from "./LetterBox";
 import Lamps from "./Lamps";
 import CryogonText from "./CryogonText";
 import MountainClouds from "./MountainClouds";
+import BonFire from "./BonFire";
 
 const HomeMountain = () => {
   const homeMountainModelUpper = useGLTF("/models/HomeMountainUpper.glb");
@@ -17,9 +18,24 @@ const HomeMountain = () => {
   const homeMountainBigBolder = useGLTF("/models/BigBoulders_Home.glb");
   const homeMountainTempleHome = useGLTF("/models/Temple_Home.glb");
   const homeMountainAxe = useGLTF("/models/Axe.glb");
-  const homeMountainBonFireStones = useGLTF("/models/BonFireStones.glb");
   const homeMountainMainHouse = useGLTF("/models/MainHouse_Home-2.glb");
   const homeMountainSittingLogs = useGLTF("/models/sittingLogs_Home.glb");
+
+  const [showClouds, setShowClouds] = useState(false)
+  const sheet = useCurrentSheet()
+
+  useEffect(() => {
+    const showCloudsObject = sheet?.object('showCloudsToggle', {
+      showClouds: showClouds
+    }, { reconfigure: true })
+    const unsub = showCloudsObject?.onValuesChange(values => {
+      setShowClouds(values.showClouds)
+    })
+
+    return () => {
+      unsub?.()
+    }
+  }, [sheet])
 
   useEffect(() => {
     const models = [
@@ -32,7 +48,6 @@ const HomeMountain = () => {
       homeMountainBigBolder,
       homeMountainTempleHome,
       homeMountainAxe,
-      homeMountainBonFireStones,
       homeMountainMainHouse,
       homeMountainSittingLogs,
     ];
@@ -55,7 +70,6 @@ const HomeMountain = () => {
     homeMountainBigBolder,
     homeMountainTempleHome,
     homeMountainAxe,
-    homeMountainBonFireStones,
     homeMountainMainHouse,
     homeMountainSittingLogs,
   ]);
@@ -108,11 +122,6 @@ const HomeMountain = () => {
       />
       <e.primitive
         editableType="group"
-        theatreKey="homeMountainBonFireStones"
-        object={homeMountainBonFireStones.scene}
-      />
-      <e.primitive
-        editableType="group"
         theatreKey="homeMountainMainHouse"
         object={homeMountainMainHouse.scene}
       />
@@ -144,7 +153,10 @@ const HomeMountain = () => {
       <LetterBox />
       <Lamps />
       <CryogonText />
-      <MountainClouds />
+      <BonFire />
+      {showClouds &&
+        <MountainClouds />
+      }
     </>
   );
 };

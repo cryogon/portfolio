@@ -335,6 +335,22 @@
           "scene1-cloud2-sprite / density": {
             "size": 100,
             "density": 0.8683544303797466
+          },
+          "homeMountainBonFire": {
+            "position": {
+              "x": -65.14214394199902,
+              "y": 489.1980441518194,
+              "z": -167.85431996524656
+            },
+            "rotation": {
+              "y": -2.6700000000000013,
+              "z": 0
+            },
+            "scale": {
+              "x": 20,
+              "y": 20,
+              "z": 10
+            }
           }
         }
       }
@@ -342,6 +358,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "xH7GOhtw1Zhi6Zgl",
     "TcoohJtiqO0-U_4t",
     "SsnpWcFrmAWj32ft",
     "Oqx5ejrA3BgJvpwe",
