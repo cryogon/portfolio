@@ -28,9 +28,13 @@ const HomeMountain = () => {
     const showCloudsObject = sheet?.object('showCloudsToggle', {
       showClouds: showClouds
     }, { reconfigure: true })
-    showCloudsObject?.onValuesChange(values => {
+    const unsub = showCloudsObject?.onValuesChange(values => {
       setShowClouds(values.showClouds)
     })
+
+    return () => {
+      unsub?.()
+    }
   }, [sheet])
 
   useEffect(() => {

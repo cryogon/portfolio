@@ -24,14 +24,18 @@ const BonFire = () => {
     homeMountainBonFireStones,
   ]);
 
-  const { fireGeometry, fireMaterial } = useMemo(() => {
-    const fireGeometry = new THREE.PlaneGeometry()
-    const fireMaterial = new THREE.MeshBasicMaterial({
-      map: videoTexture,
-      transparent: true
-    })
-    return { fireGeometry, fireMaterial }
-  }, [videoTexture])
+  const fireGeometry = useMemo(() => new THREE.PlaneGeometry(), [])
+  const fireMaterial = useMemo(() => new THREE.MeshBasicMaterial({
+    map: videoTexture,
+    transparent: true
+  }), [videoTexture])
+
+  useEffect(() => {
+    return () => {
+      fireGeometry.dispose()
+      fireMaterial.dispose()
+    }
+  }, [fireGeometry, fireMaterial])
 
   return (
     <>
