@@ -9,7 +9,7 @@ import { seededRandom } from "../../utils/seededRandom";
 const Tree = () => {
   const homeMountainTreeHome = useGLTF("/models/Tree_Home.glb");
   const { nodes } = useGLTF('/models/Scene1/Petal.glb') as any
-  const count = 60;
+  const count = 100;
   const instancesRef = useRef<THREE.InstancedMesh>(null!);
 
   const initialPositions = useMemo(() => {
@@ -23,7 +23,7 @@ const Tree = () => {
         initialY: seededRandom() * 40,
         initialZ: seededRandom() * 10,
         fallSpeed: 0.5 + seededRandom() * 1.5,
-        driftSpeed: 1 + seededRandom(),
+        driftSpeed: 0.5 + seededRandom(),
         swaySpeed: 0.5 + seededRandom() * 1.5,
         swayAmount: 0.5 + seededRandom() * 1,
         rotationX: seededRandom() * Math.PI * 2,
@@ -32,7 +32,7 @@ const Tree = () => {
         rotationSpeedX: (seededRandom() - 0.5) * 2,
         rotationSpeedY: (seededRandom() - 0.5) * 2,
         rotationSpeedZ: (seededRandom() - 0.5) * 3,
-        scale: 0.5 + seededRandom() * 0.3
+        scale: 0.6 + seededRandom() * 0.3
       });
     }
     return temp;
