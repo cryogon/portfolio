@@ -29,6 +29,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            export PATH=$HOME/.bun/bin:$PATH
             test -d Portfolio || git clone https://github.com/cryogon/portfolio.git Portfolio
             cd Portfolio
             git pull
