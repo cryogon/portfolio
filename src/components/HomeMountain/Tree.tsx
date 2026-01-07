@@ -9,7 +9,7 @@ import { seededRandom } from "../../utils/seededRandom";
 const Tree = () => {
   const homeMountainTreeHome = useGLTF("/models/Tree_Home.glb");
   const { nodes } = useGLTF('/models/Scene1/Petal.glb') as any
-  const count = 100;
+  const count = 20;
   const instancesRef = useRef<THREE.InstancedMesh>(null!);
 
   const initialPositions = useMemo(() => {
