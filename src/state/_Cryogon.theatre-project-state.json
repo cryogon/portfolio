@@ -351,16 +351,6 @@
               "y": 20,
               "z": 10
             }
-          },
-          "homeMountainTreeHomeLeaves": {
-            "position": {
-              "y": 504.4900000000009,
-              "x": -18.450000000000014,
-              "z": -191.43420607015727
-            },
-            "rotation": {
-              "y": -3.16
-            }
           }
         }
       }
@@ -368,7 +358,6 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
-    "aHisAaQbMbANw_Xt",
     "xH7GOhtw1Zhi6Zgl",
     "TcoohJtiqO0-U_4t",
     "SsnpWcFrmAWj32ft",
