@@ -7,6 +7,7 @@ import Lamps from "./Lamps";
 import CryogonText from "./CryogonText";
 import MountainClouds from "./MountainClouds";
 import BonFire from "./BonFire";
+import Tree from "./Tree";
 
 const HomeMountain = () => {
   const homeMountainModelUpper = useGLTF("/models/HomeMountainUpper.glb");
@@ -102,11 +103,6 @@ const HomeMountain = () => {
       />
       <e.primitive
         editableType="group"
-        theatreKey="HomeMountainTreeHome"
-        object={homeMountainTreeHome.scene}
-      />
-      <e.primitive
-        editableType="group"
         theatreKey="homeMountainBigBolder"
         object={homeMountainBigBolder.scene}
       />
@@ -154,6 +150,7 @@ const HomeMountain = () => {
       <Lamps />
       <CryogonText />
       <BonFire />
+      <Tree />
       {showClouds &&
         <MountainClouds />
       }
